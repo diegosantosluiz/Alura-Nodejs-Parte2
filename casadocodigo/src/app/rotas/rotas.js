@@ -2,20 +2,22 @@ const { check } = require('express-validator/check');
 
 const BaseControlador = require('../controladores/base-controlador');
 const baseControlador = new BaseControlador();
+const rotasBase = BaseControlador.rotas();
 
 const LivroControlador = require('../controladores/livro-controlador');
 const livroControlador = new LivroControlador();
+const rotasLivro = LivroControlador.rotas();
 
 module.exports = (app) => {
-  app.get('/', baseControlador.home());
+  app.get(rotasBase.home, baseControlador.home());
   
-  app.get('/livros', livroControlador.lista());
+  app.get(rotasLivro.lista, livroControlador.lista());
 
-  app.get('/livros/form', livroControlador.formularioCadastro());
+  app.get(rotasLivro.cadastro, livroControlador.formularioCadastro());
 
-  app.get('/livros/form/:id', livroControlador.formularioEdicao());
+  app.get(rotasLivro.edicao, livroControlador.formularioEdicao());
 
-  app.post('/livros',
+  app.post(rotasLivro.lista,
     [
       check('titulo').isLength({ min: 5 }).withMessage('O título precisa ter no mínimo 5 caracteres!'),
       check('preco').isCurrency().withMessage('O preço precisa ter um valor monetário válido!')
@@ -23,7 +25,7 @@ module.exports = (app) => {
     livroControlador.cadastra()
   );
 
-  app.put('/livros', livroControlador.edita());
+  app.put(rotasLivro.lista, livroControlador.edita());
 
-  app.delete('/livros/:id', livroControlador.remove());
+  app.delete(rotasLivro.delecao, livroControlador.remove());
 };
