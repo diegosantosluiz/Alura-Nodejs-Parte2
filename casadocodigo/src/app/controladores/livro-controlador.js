@@ -35,7 +35,7 @@ class LivroControlador {
   formularioCadastro() {
     return function(req, resp) {
       resp.marko(
-        require('../views/livros/form/form.marko'), 
+        templates.livros.form, 
         { livro: {} }
       );
     };
@@ -49,7 +49,7 @@ class LivroControlador {
       livroDao.buscaPorId(id)
         .then(livro =>
           resp.marko(
-            require('../views/livros/form/form.marko'), 
+            templates.livros.form,
             {
               livro: livro
             }
@@ -65,7 +65,7 @@ class LivroControlador {
       const erros = validationResult(req);
       if (!erros.isEmpty()) {
         return resp.marko(
-          require('../views/livros/form/form.marko'),
+          templates.livros.form,
           { 
             livro: req.body,
             errosValidacao: erros.array()
