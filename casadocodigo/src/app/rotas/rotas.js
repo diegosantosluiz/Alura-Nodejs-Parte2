@@ -2,13 +2,14 @@ const { check } = require('express-validator/check');
 
 const BaseControlador = require('../controladores/base-controlador');
 const baseControlador = new BaseControlador();
-const rotasBase = BaseControlador.rotas();
 
 const LivroControlador = require('../controladores/livro-controlador');
 const livroControlador = new LivroControlador();
-const rotasLivro = LivroControlador.rotas();
 
 module.exports = (app) => {
+  const rotasBase = BaseControlador.rotas();
+  const rotasLivro = LivroControlador.rotas();
+  
   app.get(rotasBase.home, baseControlador.home());
   
   app.get(rotasLivro.lista, livroControlador.lista());
