@@ -3,6 +3,8 @@ const { validationResult } = require('express-validator/check');
 const LivroDao = require('../infra/livro-dao');
 const db = require('../../config/database');
 
+const templates = require('../views/template');
+
 class LivroControlador {
 
   static rotas() {
@@ -21,7 +23,7 @@ class LivroControlador {
         .lista()
         .then(livros => 
           resp.marko(
-            require('../views/livros/lista/lista.marko'),
+            templates.livros.lista,
             {
               livros: livros
             }
