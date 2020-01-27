@@ -53,4 +53,9 @@ module.exports = (app) => {
 
   app.use(passport.initialize());
   app.use(passport.session());
+
+  app.use(function (req, resp, next) {
+    req.passport = passport;
+    next();
+  });
 }

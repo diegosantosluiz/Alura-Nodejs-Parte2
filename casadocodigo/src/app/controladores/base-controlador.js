@@ -1,6 +1,5 @@
 const LivroControlador = require('./livro-controlador');
 const templates = require('../views/template');
-const passport = require('passport');
 
 class BaseControlador {
 
@@ -29,6 +28,8 @@ class BaseControlador {
 
   efetuaLogin() {
     return function(req, resp, next) {
+      const passport = req.passport;
+      
       passport.authenticate('local', (erro, usuario, info) => {
         if (info) {
           return resp.marko(templates.base.login);
